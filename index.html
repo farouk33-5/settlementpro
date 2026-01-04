@@ -1,53 +1,25 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SettlementPro Sniper</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>SettlementPro | Business Revenue Optimizer</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: white; text-align: center; padding: 50px; }
+        .badge { background: #1e293b; color: #38bdf8; padding: 5px 15px; border-radius: 20px; font-size: 12px; }
+        h1 { font-size: 3rem; margin-top: 20px; }
+        p { color: #94a3b8; max-width: 600px; margin: 20px auto; line-height: 1.6; }
+        .container { border: 1px solid #1e293b; padding: 40px; border-radius: 15px; display: inline-block; background: #111827; }
+        .status { color: #fbbf24; font-weight: bold; }
+    </style>
 </head>
-<body class="bg-slate-950 text-white flex items-center justify-center min-h-screen">
-    <div class="p-10 bg-slate-900 rounded-[2rem] border border-blue-500/20 w-full max-w-md shadow-2xl text-center">
-        <h1 class="text-2xl font-black italic mb-6">SETTLEMENT<span class="text-blue-500 text-bold">PRO</span></h1>
-        <div id="statusBox" class="p-6 bg-black/40 rounded-2xl border border-slate-800">
-            <p class="text-[10px] text-slate-500 uppercase font-black mb-2">System Status</p>
-            <p id="statusText" class="text-sm text-blue-400 animate-pulse">Waiting for Webhook Signal...</p>
-        </div>
-        <div class="mt-6 space-y-2">
-            <button onclick="testWebhook()" class="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-sm font-bold transition">Test Webhook</button>
-            <p id="webhookUrl" class="text-[10px] text-slate-500 break-all mt-2"></p>
-        </div>
-        <div class="mt-8 text-[8px] text-slate-600 text-center uppercase tracking-widest">Authenticated via Owner API Key</div>
+<body>
+    <div class="container">
+        <span class="badge">Enterprise Version 2.0</span>
+        <h1>SettlementPro Gateway</h1>
+        <p>Optimize your B2B cash flow with our advanced financial management suite. Designed for digital entrepreneurs to streamline revenue recognition and automate financial reporting.</p>
+        <div class="status">● System Status: Under Maintenance for Security Audit</div>
     </div>
-    <script>
-        const webhookUrl = window.location.origin + '/api/webhook';
-        document.getElementById('webhookUrl').innerText = 'Webhook URL: ' + webhookUrl;
-        async function testWebhook() {
-            const statusDisplay = document.getElementById('statusText');
-            statusDisplay.innerText = "Testing webhook...";
-            statusDisplay.classList.remove('text-green-400', 'text-red-400');
-            statusDisplay.classList.add('text-yellow-400');
-            try {
-                const response = await fetch('/api/webhook', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({event: 'payment_succeeded', amount: 1, test: true})
-                });
-                const data = await response.json();
-                if (response.ok) {
-                    statusDisplay.innerText = "✓ Webhook Test SUCCESS";
-                    statusDisplay.classList.remove('text-yellow-400');
-                    statusDisplay.classList.add('text-green-400');
-                } else {
-                    throw new Error(data.message || 'Test failed');
-                }
-            } catch (error) {
-                statusDisplay.innerText = "✗ Test Failed: " + error.message;
-                statusDisplay.classList.remove('text-yellow-400');
-                statusDisplay.classList.add('text-red-400');
-            }
-        }
-        console.log("SettlementPro Gateway: Active");
-    </script>
 </body>
 </html>
